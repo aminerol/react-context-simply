@@ -1,0 +1,27 @@
+{
+  "name": "react-context-simply",
+  "version": "1.0.0",
+  "description": "leveraging the react context api for state management with no boilerplate code",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aminerol/react-context-simply.git"
+  },
+  "keywords": [
+    "react context",
+    "react state management",
+    "redux alike",
+    "react native",
+    "react context api",
+    "react hooks"
+  ],
+  "author": "Amine Bl <zazamine8@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aminerol/react-context-simply/issues"
+  },
+  "homepage": "https://github.com/aminerol/react-context-simply#readme"
+}
