@@ -5,7 +5,18 @@ export default function createStateContext(initialState, reducer, actions, middl
     const middlewares = Array.isArray(middleware) ? middleware : [middleware]
     const StateContext = createContext([initialState, () => null]);
     const StateProvider = ({children}) => {
-        const [state, dispatch] = middlewares.reduce((agg, mw) => mw ? mw(agg) : agg, useReducer(reducer, initialState));
+        const [state, dispatch] = middlewares.reduce((result, mw) => {
+          const [st, agg] = useReducer(reducer, initialState)
+          const newDis = action => {
+            const types = Array.isArray(mw.action) ? mw.action : [mw.action]
+            if(types.includes(action.type) || types.includes('*')){
+              return mw ? mw.middleware([st, agg]) : agg
+            }else{
+              return agg(action)
+            }
+          }
+          return [st, newDis]
+        }, []);
         const enhancedDispatch = augmentDispatch(state, dispatch)
         const newActions = Object.keys(actions).reduce((result, action) => {
           result[action] = useCallback((payload) =>  enhancedDispatch(actions[action](payload)), [])
