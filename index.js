@@ -8,12 +8,14 @@ export default function createStateContext(initialState, reducer, actions, middl
         const chain = []
         const [state, dispatch] = middlewares ? middlewares.reduce(([st, agg], mw) => { 
           const newDis = action => {
-            const types = Array.isArray(mw.action) ? mw.action : [mw.action]
-            if(types.includes(action.type) || types.includes('*')){
-              let [_, next] = mw.middleware([state, agg])
-              return next(action)
-            }else{
-              return agg(action)
+            if(action){
+              const types = Array.isArray(mw.action) ? mw.action : [mw.action]
+              if(types.includes(action.type) || types.includes('*')){
+                let [_, next] = mw.middleware([state, agg])
+                return next(action)
+              }else{
+                return agg(action)
+              }
             }
           }
           chain.push(newDis)
